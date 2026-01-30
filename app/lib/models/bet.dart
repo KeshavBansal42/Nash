@@ -22,18 +22,30 @@ class Bet {
     required this.createdBy,
     required this.createdAt,
     required this.endsAt,
-    this.myBet
+    this.myBet,
   });
 
-  static fromJSON(Map<String, dynamic> data) => Bet(
-    title: data['title'],
-    totalPot: data['total_pot'],
-    poolFor: data['pool_for'],
-    poolAgainst: data['pool_against'],
-    status: data['status'],
-    createdAt: data['created_at'],
-    createdBy: data['created_by'],
-    endsAt: data['ends_at'],
-    myBet: data["my_bet"] != null ? PlacedBet.fromJSON(data['my_bet']) : null,
-  );
+  static fromJSON(Map<String, dynamic> data) {
+    Status status = Status.resolved;
+
+    if (data['status'] == 'open') {
+      status = Status.open;
+    } else if (data['status'] == 'resolved') {
+      status = Status.resolved;
+    } else if (data['status'] == 'locked') {
+      status = Status.locked;
+    }
+
+    return Bet(
+      status: status,
+      title: data['title'],
+      totalPot: data['total_pot'],
+      poolFor: data['pool_for'],
+      poolAgainst: data['pool_against'],
+      createdAt: data['created_at'],
+      createdBy: data['created_by'],
+      endsAt: data['ends_at'],
+      myBet: data["my_bet"] != null ? PlacedBet.fromJSON(data['my_bet']) : null,
+    );
+  }
 }
