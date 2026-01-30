@@ -66,13 +66,20 @@ export const performDailyCheckIn = async (
   try {
     await client.query("BEGIN");
 
-    const result = await client.query("SELECT * FROM users WHERE id = $1", [
+    const result = await client.query("SELECT * FROM auth WHERE user_id = $1", [
       userId,
     ]);
-    const lastCheckIn = result.rows[0].last_login;
-    const currentDate = new Date(Date.now());
+    const lastCheckIn_date = result.rows[0].last_login.getDate();
+    const lastCheckIn_month = result.rows[0].last_login.getMonth();
+    const lastCheckIn_year = result.rows[0].last_login.getFullYear();
+    const currentDate_date = new Date(Date.now()).getDate();
+    const currentDate_month = new Date(Date.now()).getMonth();
+    const currentDate_year = new Date(Date.now()).getFullYear();
 
-    if (lastCheckIn !== currentDate) {
+    if (lastCheckIn_date !== currentDate_date ||
+        lastCheckIn_month !== currentDate_month ||
+        lastCheckIn_year !== currentDate_year) {
+      const currentDate = new Date(Date.now());
       await client.query(
         "UPDATE users SET wallet_balance = wallet_balance + 100 WHERE id = $1",
         [userId],
