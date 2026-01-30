@@ -1,14 +1,14 @@
-import {Pool} from "pg";
 import dotenv from "dotenv";
+import { Pool } from "pg";
 
-dotenv.config()
+dotenv.config();
 
-const pool = new Pool({
+const pool: Pool = new Pool({
   user: process.env.USER,
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
   host: process.env.HOST,
-  port: parseInt(process.env.DBPORT),
+  port: process.env.DBPORT,
 });
 
 pool.on("error", (err: any) => {
