@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+
+import '/config/theme.dart';
+import '/extensions/datetime.dart';
+import '/extensions/number.dart';
+
+class RecentBetTile extends StatelessWidget {
+  const RecentBetTile({
+    super.key,
+    required this.transaction,
+    this.showBorder = true,
+  });
+
+  final Map<String, dynamic> transaction;
+  final bool showBorder;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      shape: showBorder
+          ? Border(
+              bottom: BorderSide(color: context.colorScheme.onSurfaceVariant),
+            )
+          : null,
+      title: Text(transaction["user_id"]),
+      subtitle: Text("\$${(transaction["amount"] as num).formatWithCommas()}"),
+      trailing: Text((transaction["placed_at"] as DateTime).toReadableFormat()),
+    );
+  }
+}
