@@ -8,3 +8,5 @@ CREATE TABLE bets(
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	expires_at TIMESTAMP NOT NULL,
 );
+
+CREATE INDEX group_bets_idx ON bets (group_id);
