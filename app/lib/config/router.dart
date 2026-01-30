@@ -1,16 +1,24 @@
-import 'package:app/pages/home/home.dart';
-import 'package:app/pages/login/login.dart';
-import 'package:app/pages/register/register.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '/pages/bet/bet.dart';
+import '/pages/login/login.dart';
+import '/pages/register/register.dart';
+
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: '/home',
+    initialLocation: '/bet/123',
     routes: [
       GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
-      GoRoute(path: '/register', builder: (context, state) => RegisterPage()),
-      GoRoute(path: '/home', builder: (context, state) => HomePage())
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => const RegisterPage(),
+      ),
+      GoRoute(
+        path: '/bet/:bet_id',
+        builder: (context, state) =>
+            BetPage(betID: state.pathParameters["bet_id"]!),
+      ),
     ],
   );
 });
