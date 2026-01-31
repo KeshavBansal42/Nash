@@ -1,8 +1,8 @@
-import 'package:app/pages/bet/widgets/recent_bets_modal.dart';
 import 'package:flutter/material.dart';
 
 import '/config/theme.dart';
-import 'bet_tile.dart';
+import '/widgets/transaction_history_modal.dart';
+import '../../../widgets/transaction_tile.dart';
 
 class BetTrendsCard extends StatelessWidget {
   const BetTrendsCard({super.key, required this.data});
@@ -50,19 +50,15 @@ class BetTrendsCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            Column(
-              children: List.generate(data["transactions"].length.clamp(0, 5), (
-                index,
-              ) {
-                final Map<String, dynamic> transaction =
-                    data["transactions"][index];
+            ...List.generate(data["transactions"].length.clamp(0, 5), (index) {
+              final Map<String, dynamic> transaction =
+                  data["transactions"][index];
 
-                return RecentBetTile(
-                  transaction: transaction,
-                  showBorder: index < 4,
-                );
-              }),
-            ),
+              return TransactionTile(
+                transaction: transaction,
+                showBorder: index < 4,
+              );
+            }),
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: () {
@@ -79,7 +75,8 @@ class BetTrendsCard extends StatelessWidget {
                           (
                             BuildContext context,
                             ScrollController scrollController,
-                          ) => RecentBetsModalSheet(
+                          ) => TransactionHistoryModal(
+                            heading: "Recent Bets",
                             controller: scrollController,
                             transactions: data["transactions"],
                           ),

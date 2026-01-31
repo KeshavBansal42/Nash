@@ -1,15 +1,17 @@
 import 'package:app/config/theme.dart';
-import 'package:app/pages/bet/widgets/bet_tile.dart';
+import 'package:app/widgets/transaction_tile.dart';
 import 'package:flutter/material.dart';
 
-class RecentBetsModalSheet extends StatelessWidget {
+class TransactionHistoryModal extends StatelessWidget {
+  final String heading;
   final ScrollController controller;
   final List<Map<String, dynamic>> transactions;
 
-  const RecentBetsModalSheet({
+  const TransactionHistoryModal({
     super.key,
     required this.controller,
     required this.transactions,
+    required this.heading,
   });
 
   @override
@@ -39,7 +41,7 @@ class RecentBetsModalSheet extends StatelessWidget {
             child: ListView.builder(
               controller: controller,
               itemCount: transactions.length,
-              itemBuilder: (BuildContext context, int index) => RecentBetTile(
+              itemBuilder: (BuildContext context, int index) => TransactionTile(
                 transaction: transactions[index],
                 showBorder: index != transactions.length - 1,
               ),

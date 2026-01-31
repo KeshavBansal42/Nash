@@ -66,7 +66,7 @@ class ProfileHeader extends StatelessWidget {
           style: TextStyle(fontSize: 18, color: Colors.black54),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
