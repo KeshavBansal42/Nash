@@ -13,9 +13,9 @@ extension DateTimeExtension on DateTime {
       return 'Just now';
     } else if (difference.inMinutes < 60) {
       return '${difference.inMinutes} minute${difference.inMinutes == 1 ? '' : 's'} ago';
-    } else if (difference.inHours < 24) {
-      return '${difference.inHours} hour${difference.inHours == 1 ? '' : 's'} ago';
-    } else if (difference.inDays == 1) {
+    } else if (difference.inHours < 24 && day == now.day) {
+      return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} ${hour < 12 ? 'AM' : 'PM'}';
+    } else if (difference.inHours < 24 || difference.inDays == 1) {
       return 'Yesterday';
     } else if (difference.inDays < 7) {
       return '${difference.inDays} days ago';
