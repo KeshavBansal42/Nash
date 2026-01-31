@@ -9,6 +9,15 @@ class AppTheme {
         backgroundColor: Color(0xff111111),
         shape: Border(bottom: BorderSide(color: Color(0xff404040), width: 2.0)),
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+          borderSide: BorderSide(
+            color: Color.fromARGB(255, 121, 216, 31),
+            width: 4,
+          ),
+        ),
+      ),
       colorScheme: ColorScheme(
         brightness: Brightness.dark,
         primary: Color(0xff8bf825),

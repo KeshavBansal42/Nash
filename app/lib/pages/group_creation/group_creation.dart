@@ -35,20 +35,22 @@ class _GroupCreationState extends State<GroupCreation> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsetsGeometry.all(16.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: context.colorScheme.surface,
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsetsGeometry.all(16.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: context.colorScheme.surface,
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 24,
+                  horizontal: 16,
+                ),
                 child: Column(
                   children: [
-                    SizedBox(height: 8.0),
                     Text(
                       "Become Social!",
                       style: TextStyle(
@@ -61,6 +63,7 @@ class _GroupCreationState extends State<GroupCreation> {
                     CustomTextField(
                       hintText: "Group Name",
                       controller: groupNameController,
+                      maxLength: 32,
                     ),
                     SizedBox(height: 16.0),
                     CustomTextField(

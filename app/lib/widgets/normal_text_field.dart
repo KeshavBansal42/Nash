@@ -7,7 +7,9 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final int minLines;
   final int maxLines;
+  final int? maxLength;
   final TextInputType keyboardType;
+
   const CustomTextField({
     super.key,
     required this.hintText,
@@ -15,6 +17,7 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.minLines = 1,
     this.maxLines = 1,
+    this.maxLength,
     this.keyboardType = TextInputType.text,
   });
 
@@ -22,20 +25,15 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      maxLength: maxLength,
       validator: validator,
       minLines: minLines,
       maxLines: maxLines,
       keyboardType: keyboardType,
+      cursorColor: context.colorScheme.surface,
       decoration: InputDecoration(
         hintText: hintText,
         filled: true,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
-          borderSide: BorderSide(
-            color: context.colorScheme.secondary,
-            width: 2,
-          ),
-        ),
         alignLabelWithHint: true,
         fillColor: Colors.grey[100],
         border: OutlineInputBorder(
