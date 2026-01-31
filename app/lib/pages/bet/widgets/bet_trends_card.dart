@@ -1,4 +1,4 @@
-import 'package:app/pages/bet/widgets/recent_bets_modal.dart';
+import 'package:app/widgets/transactions_modal.dart';
 import 'package:flutter/material.dart';
 
 import '/config/theme.dart';
@@ -70,19 +70,8 @@ class BetTrendsCard extends StatelessWidget {
                   context: context,
                   isScrollControlled: true,
                   builder: (BuildContext context) {
-                    return DraggableScrollableSheet(
-                      initialChildSize: 0.5,
-                      minChildSize: 0.25,
-                      maxChildSize: 0.95,
-                      expand: false,
-                      builder:
-                          (
-                            BuildContext context,
-                            ScrollController scrollController,
-                          ) => RecentBetsModalSheet(
-                            controller: scrollController,
-                            transactions: data["transactions"],
-                          ),
+                    return TransactionsModalSheet(
+                      transactions: data["transactions"],
                     );
                   },
                 );
