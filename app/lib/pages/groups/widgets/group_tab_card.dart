@@ -23,7 +23,7 @@ class GroupTabCard extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-            context.push('/groups/:group_id');
+            context.push('/groups/:group_id/bets');
         },
         child: Row(
           children: [

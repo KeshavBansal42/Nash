@@ -1,5 +1,4 @@
 import 'package:app/config/theme.dart';
-import 'package:app/models/member.dart';
 import 'package:app/pages/group_info/widgets/group_member_card.dart';
 import 'package:flutter/material.dart';
 
