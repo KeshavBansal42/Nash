@@ -83,11 +83,13 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
               color: Colors.grey.shade700,
             ),
             GestureDetector(
-              onTap: () => GoRouter.of(context).push('/profile/123'),
+              onTap: () => GoRouter.of(
+                context,
+              ).push('/profile/123', extra: ["pfp-main", "wallet-main"]),
               child: Row(
                 children: [
                   Hero(
-                    tag: 'pfp',
+                    tag: 'pfp-main',
                     child: const CircleAvatar(
                       radius: 20,
                       backgroundImage: NetworkImage(
@@ -109,7 +111,7 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Hero(
-                      tag: 'wallet_balance',
+                      tag: 'wallet-main',
                       child: Text(
                         ('\$${200.formatWithCommas()}'),
                         style: TextStyle(

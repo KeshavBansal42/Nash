@@ -11,8 +11,9 @@ const String currentUser = "123";
 
 class ProfilePage extends StatefulWidget {
   final String userID;
+  final List<String> heroTags;
 
-  const ProfilePage({super.key, required this.userID});
+  const ProfilePage({super.key, required this.userID, required this.heroTags});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -113,7 +114,11 @@ class _ProfilePageState extends State<ProfilePage>
                       ),
                     ),
                   ),
-                ProfileHeader(data: data, headerKey: headerKey),
+                ProfileHeader(
+                  data: data,
+                  headerKey: headerKey,
+                  heroTag: widget.heroTags[0],
+                ),
               ],
             ),
             Expanded(
@@ -125,7 +130,7 @@ class _ProfilePageState extends State<ProfilePage>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    BalanceCard(data: data),
+                    BalanceCard(data: data, heroTag: widget.heroTags[1]),
                     const SizedBox(height: 12),
                     Expanded(
                       child: Padding(

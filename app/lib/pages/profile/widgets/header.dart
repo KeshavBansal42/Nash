@@ -6,8 +6,14 @@ import '/widgets/rounded_icon_button.dart';
 class ProfileHeader extends StatelessWidget {
   final GlobalKey headerKey;
   final Map<String, dynamic> data;
+  final String heroTag;
 
-  const ProfileHeader({super.key, required this.headerKey, required this.data});
+  const ProfileHeader({
+    super.key,
+    required this.headerKey,
+    required this.data,
+    required this.heroTag,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +41,7 @@ class ProfileHeader extends StatelessWidget {
           ),
         ),
         Hero(
-          tag: "pfp",
+          tag: heroTag,
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,

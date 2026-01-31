@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class BalanceCard extends StatelessWidget {
   final Map<String, dynamic> data;
+  final String heroTag;
 
-  const BalanceCard({super.key, required this.data});
+  const BalanceCard({super.key, required this.data, required this.heroTag});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class BalanceCard extends StatelessWidget {
               ),
             ),
             Hero(
-              tag: "wallet_balance",
+              tag: heroTag,
               child: Text(
                 "\$${200.formatWithCommas()}",
                 style: TextStyle(

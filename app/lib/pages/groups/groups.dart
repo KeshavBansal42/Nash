@@ -19,7 +19,7 @@ class GroupPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -31,7 +31,7 @@ class GroupPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 24.0),
+              SizedBox(height: 16),
               Expanded(child: GroupTabScrollView()),
             ],
           ),
