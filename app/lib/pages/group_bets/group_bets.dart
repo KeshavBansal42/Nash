@@ -24,7 +24,7 @@ class GroupBets extends StatelessWidget {
         'total_pot': 320,
         'my_bet': {'amount': 60, 'expected_payout': 200},
         'title': "Garv bhai try again on Maheek?",
-      }
+      },
     ];
 
     return Scaffold(
@@ -40,11 +40,14 @@ class GroupBets extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: IconButton(onPressed: () {
-              context.push('/groups/:group_id');
-            }, icon: Icon(Icons.info)),
-          )
-        ]
+            child: IconButton(
+              onPressed: () {
+                context.push('/groups/:group_id');
+              },
+              icon: Icon(Icons.info_outline_rounded),
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsetsGeometry.all(16.0),
@@ -55,7 +58,7 @@ class GroupBets extends StatelessWidget {
               style: TextStyle(
                 color: context.colorScheme.onSurface,
                 fontSize: 28,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(height: 12),
