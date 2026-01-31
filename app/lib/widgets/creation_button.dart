@@ -17,7 +17,7 @@ class _CreationButtonState extends State<CreationButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: widget.onPressed,
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(double.infinity, 50.0),
         padding: const EdgeInsets.symmetric(vertical: 12.0),

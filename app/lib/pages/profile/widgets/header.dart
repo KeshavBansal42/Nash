@@ -1,5 +1,6 @@
 import 'package:app/config/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '/widgets/rounded_icon_button.dart';
 
@@ -76,9 +77,14 @@ class ProfileHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("REFERRAL CODE: "),
-              Text(
-                data["referral_code"],
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              GestureDetector(
+                child: Text(
+                  data["referral_code"],
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                onLongPress: () {
+                  Clipboard.setData(ClipboardData(text: data["referral_code"]));
+                },
               ),
             ],
           ),

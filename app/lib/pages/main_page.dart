@@ -27,7 +27,7 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsetsGeometry.all(4.0),
-          child: Image.asset('assets/logo.png', fit: BoxFit.contain),
+          child: Image.asset('assets/logo.jpg', fit: BoxFit.contain),
         ),
         title: Text(
           "NASH",

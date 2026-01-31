@@ -52,13 +52,17 @@ class GroupBets extends StatelessWidget {
       body: Padding(
         padding: EdgeInsetsGeometry.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Group's Ongoing Bets",
-              style: TextStyle(
-                color: context.colorScheme.onSurface,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8,0,0,0),
+              child: Text(
+                "Group's Ongoing Bets",
+                style: TextStyle(
+                  color: context.colorScheme.onSurface,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             SizedBox(height: 12),
@@ -73,6 +77,13 @@ class GroupBets extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.push('/group/:group_id/bet_creation');
+        },
+        backgroundColor: context.colorScheme.secondary,
+        child: Icon(Icons.add, color: context.colorScheme.onSecondary),
       ),
     );
   }

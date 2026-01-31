@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'widgets/bet_details_card.dart';
+import 'widgets/bet_placement_card.dart';
 import 'widgets/bet_trends_card.dart';
 
 class BetDetailsPage extends StatelessWidget {
@@ -16,7 +17,7 @@ class BetDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            BetDetailsCard(data: data),
+            BetPlacementCard(data: data),
             const SizedBox(height: 16),
             BetTrendsCard(data: data),
           ],

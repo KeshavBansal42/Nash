@@ -30,12 +30,15 @@ class CustomTextField extends StatelessWidget {
       minLines: minLines,
       maxLines: maxLines,
       keyboardType: keyboardType,
-      cursorColor: context.colorScheme.surface,
+      cursorColor: context.colorScheme.onSurface,
+      style: TextStyle(
+        color: Colors.grey[100],
+      ),
       decoration: InputDecoration(
         hintText: hintText,
         filled: true,
         alignLabelWithHint: true,
-        fillColor: Colors.grey[100],
+        fillColor: Colors.grey[850],
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.0),
           borderSide: BorderSide.none,

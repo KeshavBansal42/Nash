@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '/config/theme.dart';
 import '/extensions/number.dart';
 
-class BetDetailsCard extends StatelessWidget {
-  const BetDetailsCard({super.key, required this.data});
+class BetPlacementCard extends StatelessWidget {
+  const BetPlacementCard({super.key, required this.data});
 
   final Map<String, dynamic> data;
 

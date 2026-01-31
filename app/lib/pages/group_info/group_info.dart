@@ -50,7 +50,7 @@ class GroupInfo extends StatelessWidget {
             children: [
               GroupInfoCard(data: groupData),
               SizedBox(height: 8.0),
-              Expanded(child: GroupMembersList(currentUserId: "0", members: memberData)),
+              Expanded(child: GroupMembersList(currentUserId: "1", members: memberData)),
             ]
           )
         )
