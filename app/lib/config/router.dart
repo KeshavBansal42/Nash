@@ -1,4 +1,4 @@
-import 'package:app/pages/group/groups.dart';
+import 'package:app/pages/groups/groups.dart';
 import 'package:app/pages/search/search.dart';
 import 'package:app/widgets/sliding_shell_stack.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

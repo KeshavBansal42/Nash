@@ -1,4 +1,4 @@
-import 'package:app/pages/group/widgets/group_tab_card.dart';
+import 'package:app/pages/groups/widgets/group_tab_card.dart';
 import 'package:flutter/material.dart';
 
 class GroupTabScrollView extends StatelessWidget {

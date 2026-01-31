@@ -1,5 +1,5 @@
 import 'package:app/config/theme.dart';
-import 'package:app/pages/group/widgets/group_tab_scroll_view.dart';
+import 'package:app/pages/groups/widgets/group_tab_scroll_view.dart';
 import 'package:flutter/material.dart';
 
 class GroupPage extends StatelessWidget {
