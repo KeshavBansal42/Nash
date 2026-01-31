@@ -8,5 +8,7 @@
     "esModuleInterop": true
   },
   "include": ["src"],
-  "exclude": ["**/undodir"]
+  "exclude": ["**/undodir"],
+  "sourceMap": false,
+  "skipLibCheck": true
 }
