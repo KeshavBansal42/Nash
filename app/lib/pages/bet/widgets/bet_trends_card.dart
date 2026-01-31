@@ -1,7 +1,7 @@
+import 'package:app/widgets/transactions_modal.dart';
 import 'package:flutter/material.dart';
 
 import '/config/theme.dart';
-import '/widgets/transaction_history_modal.dart';
 import '/widgets/transaction_tile.dart';
 
 class BetTrendsCard extends StatelessWidget {
@@ -65,23 +65,10 @@ class BetTrendsCard extends StatelessWidget {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  builder: (BuildContext context) {
-                    return DraggableScrollableSheet(
-                      initialChildSize: 0.5,
-                      minChildSize: 0.25,
-                      maxChildSize: 0.95,
-                      expand: false,
-                      builder:
-                          (
-                            BuildContext context,
-                            ScrollController scrollController,
-                          ) => TransactionHistoryModal(
-                            heading: "Recent Bets",
-                            controller: scrollController,
-                            transactions: data["transactions"],
-                          ),
-                    );
-                  },
+                  builder: (BuildContext context) => TransactionsModalSheet(
+                    heading: "Recent Bets",
+                    transactions: data["transactions"],
+                  ),
                 );
               },
               style: ElevatedButton.styleFrom(

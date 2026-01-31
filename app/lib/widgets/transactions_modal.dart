@@ -3,9 +3,14 @@ import 'package:app/widgets/transaction_tile.dart';
 import 'package:flutter/material.dart';
 
 class TransactionsModalSheet extends StatelessWidget {
+  final String heading;
   final List<Map<String, dynamic>> transactions;
 
-  const TransactionsModalSheet({super.key, required this.transactions});
+  const TransactionsModalSheet({
+    super.key,
+    required this.transactions,
+    required this.heading,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class TransactionsModalSheet extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Recent Bets",
+                  heading,
                   style: TextStyle(
                     fontSize: 26,
                     color: context.colorScheme.onSurface,

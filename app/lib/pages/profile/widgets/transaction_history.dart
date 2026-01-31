@@ -1,7 +1,7 @@
+import 'package:app/widgets/transactions_modal.dart';
 import 'package:flutter/material.dart';
 
 import '/config/theme.dart';
-import '/widgets/transaction_history_modal.dart';
 import '/widgets/transaction_tile.dart';
 
 class TransactionHistorySection extends StatelessWidget {
@@ -15,7 +15,7 @@ class TransactionHistorySection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Recent Bets",
+          "Transaction History",
           style: TextStyle(
             fontSize: 20,
             color: context.colorScheme.onSurface,
@@ -47,23 +47,11 @@ class TransactionHistorySection extends StatelessWidget {
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        builder: (BuildContext context) {
-                          return DraggableScrollableSheet(
-                            initialChildSize: 0.5,
-                            minChildSize: 0.25,
-                            maxChildSize: 0.95,
-                            expand: false,
-                            builder:
-                                (
-                                  BuildContext context,
-                                  ScrollController scrollController,
-                                ) => TransactionHistoryModal(
-                                  heading: "Transaction History",
-                                  controller: scrollController,
-                                  transactions: data["transactions"],
-                                ),
-                          );
-                        },
+                        builder: (BuildContext context) =>
+                            TransactionsModalSheet(
+                              heading: "Transaction History",
+                              transactions: data["transactions"],
+                            ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
