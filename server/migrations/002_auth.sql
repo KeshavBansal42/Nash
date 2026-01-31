@@ -1,5 +1,5 @@
 CREATE TABLE auth (
-	user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+	user_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
 	password_hash TEXT NOT NULL,
 	last_login TIMESTAMP NOT NULL DEFAULT NOW()
 );

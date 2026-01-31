@@ -4,11 +4,7 @@ import { Pool } from "pg";
 dotenv.config();
 
 const pool: Pool = new Pool({
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
-  host: process.env.HOST,
-  port: process.env.DBPORT,
+  connectionString: process.env.DATABASE_URL,
 });
 
 pool.on("error", (err: any) => {

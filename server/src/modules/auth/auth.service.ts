@@ -38,8 +38,8 @@ export const register = async (
 
     return {
       id: user.id,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
+      access_token: accessToken,
+      refresh_token: refreshToken,
     };
   } catch (err: any) {
     await client.query("ROLLBACK");
@@ -61,6 +61,10 @@ export const login = async (
   if (!(await bcrypt.compare(input.password, authUser.passwordHash)))
     throw new Error("Invalid credentials!");
 
+  try {
+    await userRepository.performDailyCheckIn(authUser.id);
+  } catch (err) {}
+
   const accessToken = generateJWTToken(user.id);
   const refreshToken = generateRefreshToken();
 
@@ -68,15 +72,15 @@ export const login = async (
 
   return {
     id: user.id,
-    accessToken: accessToken,
-    refreshToken: refreshToken,
+    access_token: accessToken,
+    refresh_token: refreshToken,
   };
 };
 
 export const refresh = async (
   input: RefreshRequestDTO,
 ): Promise<AuthResponseDTO> => {
-  const token = await authRepository.getRefreshToken(input.refreshToken);
+  const token = await authRepository.getRefreshToken(input.refresh_token);
 
   if (!token) throw new Error("Bad request. Login again");
 
@@ -91,11 +95,11 @@ export const refresh = async (
 
   return {
     id: token.userID,
-    accessToken: accessToken,
-    refreshToken: refreshToken,
+    access_token: accessToken,
+    refresh_token: refreshToken,
   };
 };
 
 export const logout = async (input: LogoutRequestDTO) => {
-  await authRepository.revokeRefreshToken(input.refreshToken);
+  await authRepository.revokeRefreshToken(input.refresh_token);
 };
