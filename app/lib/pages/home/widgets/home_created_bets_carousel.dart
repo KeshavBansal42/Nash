@@ -38,7 +38,7 @@ class HomeCreatedBetsCarousel extends ConsumerWidget {
           );
         }
 
-        if (asyncSnapshot.data == null) {
+        if (asyncSnapshot.data == null || asyncSnapshot.data!.isEmpty) {
           return Center(
             child: Text(
               "You don't have any created open bets!",

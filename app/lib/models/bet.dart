@@ -26,7 +26,7 @@ class Bet {
   });
 
   factory Bet.fromJSON(Map<String, dynamic> json) {
-    Status status = Status.locked;
+    Status status = Status.open;
     switch (json['status']) {
       case 'open':
         status = Status.open;
@@ -45,15 +45,7 @@ class Bet {
       createdAt: DateTime.parse(json['created_at']),
       createdBy: json['creator_id'] ?? "",
       expiresAt: DateTime.parse(json['expires_at']),
-      myBet: json["my_bet"] != null
-          ? PlacedBet.fromJSON(json['my_bet'])
-          : (json["amount"] != null
-                ? PlacedBet(
-                    amount: int.parse(json["amount"]),
-                    option: json["selected_option"],
-                    expectedPayout: 0,
-                  )
-                : null),
+      myBet: json["my_bet"] != null ? PlacedBet.fromJSON(json['my_bet']) : null,
     );
   }
 }

@@ -14,9 +14,9 @@ class OngoingBetsCarousel extends ConsumerWidget {
     final dio = ref.read(dioProvider);
     final res = await dio.get('/users/placed_bets');
 
-    return res.data.map((bet) {
-      return Bet.fromJSON(bet);
-    });
+    print("LOG: ${res.data}");
+
+    return res.data.map<Bet>((bet) => Bet.fromJSON(bet)).toList();
   }
 
   @override
@@ -42,7 +42,9 @@ class OngoingBetsCarousel extends ConsumerWidget {
           );
         }
 
-        if (asyncSnapshot.data == null) {
+        print("DATA: ${asyncSnapshot.data}");
+
+        if (asyncSnapshot.data == null || asyncSnapshot.data!.isEmpty) {
           return Center(
             child: Text(
               "You don't have any placed open bets!",
