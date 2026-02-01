@@ -2,8 +2,10 @@ import { Server } from "socket.io";
 import { verifyJWTToken } from "../utils/jwt.js";
 import registerChatHandlers from "./chat.socket.js";
 
+let io: Server;
+
 export const initSocket = (server: any) => {
-  const io = new Server(server, {
+  io = new Server(server, {
     cors: { origin: "*", methods: ["GET", "POST"] },
   });
 
@@ -23,4 +25,11 @@ export const initSocket = (server: any) => {
     console.log("Socket connected: ", socket.id);
     registerChatHandlers(io, socket);
   });
+};
+
+export const getIO = () => {
+  if (!io) {
+    throw new Error("Socket.io not initialized");
+  }
+  return io;
 };
