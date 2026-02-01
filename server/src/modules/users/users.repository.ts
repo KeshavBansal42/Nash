@@ -132,36 +132,20 @@ export const updateUserWalletBalance = async (
   userId: string,
   payout: number,
 ): Promise<void> => {
-  await pool.query(
-    `UPDATE users SET wallet_balance = wallet_balance + $1 WHERE id = $2`,
-    [payout, userId],
-  );
-};
+  await pool.query(`UPDATE users SET wallet_balance = wallet_balance + $1 WHERE id = $2`,[payout,userId])
+}
 
-export const getUserPlacedBets = async (userId: string): Promise<UserBet[]> => {
-  const result = await pool.query(`SELECT * FROM user_bets WHERE user_id=$1`, [
-    userId,
-  ]);
-  return result.rows;
-};
+export const getUserPlacedBets = async (userId:string) : Promise<UserBet[]> => {
+    const result = await pool.query(`SELECT * FROM user_bets WHERE user_id=$1`,[userId])
+    return result.rows
+}
 
-export const getOpenBetsFromPlacedBets = async (
-  betIds: string[],
-): Promise<Bet[]> => {
-  const result = await pool.query(
-    `SELECT * FROM bets JOIN user_bets ON bets.id=user_bets.bet_id WHERE id=ANY($1) AND status=$2`,
-    [betIds, "open"],
-  );
+export const getOpenBetsFromPlacedBets = async (betIds:string[]) : Promise<Bet[]> => {
+    const result = await pool.query(`SELECT * FROM bets JOIN user_bets ON bets.id=user_bets.bet_id WHERE id=ANY($1) AND status=$2`,[betIds,'open'])
+    return result.rows
+}
 
-  return result.rows;
-};
-
-export const getUserCreatedOpenBets = async (
-  userId: string,
-): Promise<Bet[]> => {
-  const result = await pool.query(
-    `SELECT * FROM bets WHERE creator_id=$1 AND status=$2`,
-    [userId, "open"],
-  );
-  return result.rows;
-};
+export const getUserCreatedOpenBets = async (userId:string): Promise<Bet[]> => {
+    const result = await pool.query(`SELECT * FROM bets WHERE creator_id=$1 AND status=$2`,[userId,'open'])
+    return result.rows
+}
