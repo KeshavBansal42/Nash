@@ -32,8 +32,21 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsetsGeometry.all(4.0),
-          child: Image.asset('assets/logo-removebg-preview.png', fit: BoxFit.contain),
+          child: Image.asset(
+            'assets/logo-removebg-preview.png',
+            fit: BoxFit.contain,
+          ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.push('/notifications');
+            },
+            icon: Icon(Icons.notification_add),
+            color: context.colorScheme.onSurfaceVariant,
+          ),
+          SizedBox(width: 8),
+        ],
         title: Text(
           "NASH",
           style: TextStyle(
