@@ -46,6 +46,7 @@ export const getUserPlacedOpenBets = async (
   return (await userRepository.getOpenPlacedBets(authUserID)).map((bet) => {
     return {
       id: bet.id,
+      group_id: bet.group_id,
       title: bet.title,
       expires_at: bet.expires_at,
       created_at: bet.created_at,
