@@ -6,8 +6,6 @@ import { CheckInResponseDTO } from "./dtos/check-in-response.dto.js";
 import { Group } from "../groups/groups.model.js";
 import { Bet, UserBet } from "../bets/bets.model.js";
 
-import * as userRepository from "./users.repository.js";
-
 export const getCurrentUser = async (
   authUserID: string,
 ): Promise<SameUserResponseDTO> => {
