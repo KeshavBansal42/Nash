@@ -26,7 +26,7 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = ref.read(userControllerProvider).value!;
+    final User user = ref.watch(userControllerProvider).value!;
 
     return Scaffold(
       appBar: AppBar(

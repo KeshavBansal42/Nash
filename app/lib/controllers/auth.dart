@@ -1,4 +1,4 @@
-import 'package:app/providers/user_provider.dart';
+import 'package:app/controllers/user.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/providers/dio_provider.dart';
@@ -15,8 +15,8 @@ class AuthController extends Notifier<AuthStatus> {
 
   Future<void> logout() async {
     await storage.deleteAll();
-    ref.read(userProvider.notifier).state = null;
     state = AuthStatus.unauthenticated;
+    ref.invalidate(userControllerProvider);
   }
 
   void setAuthenticated() {
