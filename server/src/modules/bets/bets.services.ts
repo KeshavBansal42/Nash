@@ -14,12 +14,13 @@ export const getBet = async (
   const bet = await betRespository.getBetFromDB(betId);
   const betsMade = await betRespository.getAllUserBetsFromDB(betId);
 
-  let pool_for = 0;
-  let pool_against = 0;
+  let pool_for: number = 0;
+  let pool_against: number = 0;
 
   betsMade.forEach((singleBet) => {
-    if (singleBet.selected_option === "for") pool_for += singleBet.amount;
-    else pool_against += singleBet.amount;
+    if (singleBet.selected_option === "for")
+      pool_for += Number(singleBet.amount);
+    else pool_against += Number(singleBet.amount);
   });
 
   const total_pot = pool_against + pool_for;
@@ -135,9 +136,11 @@ export const decideBet = async (
   if (thisBet.status !== "open") {
     throw new Error("Bet not open");
   }
-  if(thisBet.creator_id !== authUserID) {
-    throw new Error("Only the creator of bet is authorized to decide the outcome.")
-}
+  if (thisBet.creator_id !== authUserID) {
+    throw new Error(
+      "Only the creator of bet is authorized to decide the outcome.",
+    );
+  }
   const bet = await betRespository.decideBet(betId, option);
   betRespository.markResolved(betId);
 
@@ -185,4 +188,3 @@ export const decideBet = async (
 
   return bet;
 };
-
