@@ -3,6 +3,7 @@ import '/models/placed_bet.dart';
 enum Status { open, resolved, locked }
 
 class Bet {
+  final String id;
   final String title;
   final int totalPot;
   final int poolFor;
@@ -14,6 +15,7 @@ class Bet {
   final PlacedBet? myBet;
 
   Bet({
+    required this.id,
     required this.title,
     required this.totalPot,
     required this.poolFor,
@@ -37,11 +39,14 @@ class Bet {
     }
 
     return Bet(
+      id: json['id'],
       status: status,
       title: json['title'],
       totalPot: int.parse(json['total_pot']),
-      poolFor: json['pool_for'] ?? 0,
-      poolAgainst: json['pool_against'] ?? 0,
+      poolFor: json['pool_for'] != null ? int.parse(json['pool_for']) : 0,
+      poolAgainst: json['pool_against'] != null
+          ? int.parse(json['pool_against'])
+          : 0,
       createdAt: DateTime.parse(json['created_at']),
       createdBy: json['creator_id'] ?? "",
       expiresAt: DateTime.parse(json['expires_at']),

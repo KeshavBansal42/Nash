@@ -58,8 +58,9 @@ class GroupTabScrollView extends ConsumerWidget {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: GroupTabCard(
-                groupName: data[index].name,
-                groupDescription: data[index].description,
+                id: data[index].id,
+                name: data[index].name,
+                description: data[index].description,
               ),
             );
           },

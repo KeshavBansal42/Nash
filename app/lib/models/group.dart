@@ -1,7 +1,7 @@
 import '/models/member.dart';
 
 class Group {
-  final String groupID;
+  final String id;
   final String name;
   final String description;
   final String createdBy;
@@ -9,7 +9,7 @@ class Group {
   final List<GroupMember> memberList;
 
   Group({
-    required this.groupID,
+    required this.id,
     required this.name,
     required this.description,
     required this.createdAt,
@@ -19,7 +19,7 @@ class Group {
 
   factory Group.fromJSON(Map<String, dynamic> json) {
     return Group(
-      groupID: json['id'],
+      id: json['id'],
       name: json['name'],
       description: json['description'],
       createdAt: DateTime.parse(json['created_at']),

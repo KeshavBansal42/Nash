@@ -4,13 +4,15 @@ import 'package:go_router/go_router.dart';
 import '/config/theme.dart';
 
 class GroupTabCard extends StatelessWidget {
-  final String groupName;
-  final String groupDescription;
+  final String id;
+  final String name;
+  final String description;
 
   const GroupTabCard({
     super.key,
-    required this.groupName,
-    required this.groupDescription,
+    required this.id,
+    required this.name,
+    required this.description,
   });
 
   @override
@@ -22,7 +24,7 @@ class GroupTabCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
       ),
       child: GestureDetector(
-        onTap: () => context.push('/groups/:group_id/bets'),
+        onTap: () => context.push('/groups/$id/bets'),
         child: Row(
           children: [
             CircleAvatar(
@@ -36,7 +38,7 @@ class GroupTabCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    groupName,
+                    name,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -47,7 +49,7 @@ class GroupTabCard extends StatelessWidget {
                   ),
                   SizedBox(height: 2.0),
                   Text(
-                    groupDescription,
+                    description,
                     style: TextStyle(fontSize: 10, color: Colors.grey.shade700),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
