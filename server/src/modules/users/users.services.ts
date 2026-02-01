@@ -1,3 +1,4 @@
+import { group } from "node:console";
 import { Bet } from "../bets/bets.model.js";
 import { Group } from "../groups/groups.model.js";
 import { CheckInResponseDTO } from "./dtos/check-in-response.dto.js";
@@ -49,6 +50,7 @@ export const getUserPlacedOpenBets = async (
       title: bet.title,
       expires_at: bet.expires_at,
       created_at: bet.created_at,
+      group_id: bet.group_id,
       total_pot: bet.total_pot,
       my_bet: {
         amount: bet.amount,
