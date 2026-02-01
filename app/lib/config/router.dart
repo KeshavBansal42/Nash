@@ -105,10 +105,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/profile/:user_id',
-        builder: (context, state) => ProfilePage(
-          userID: state.pathParameters["user_id"]!,
-          heroTags: state.extra as List<String>,
-        ),
+        builder: (context, state) =>
+            ProfilePage(userID: state.pathParameters["user_id"]!),
       ),
       GoRoute(
         path: '/groups/:group_id/bets',

@@ -2,7 +2,7 @@ class User {
   final String id;
   final String username;
   final String email;
-  final String? refferalCode;
+  final String? referralCode;
   int? balance;
 
   User({
@@ -10,7 +10,7 @@ class User {
     required this.username,
     required this.email,
     this.balance,
-    this.refferalCode,
+    this.referralCode,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -20,6 +20,7 @@ class User {
     balance: json['wallet_balance'] != null
         ? int.parse(json['wallet_balance'])
         : null,
+    referralCode: json['referral_code'],
   );
 
   User copyWith({String? username, String? email, int? balance}) {

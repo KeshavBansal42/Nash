@@ -1,30 +1,32 @@
 import 'dart:math';
 
-import '/config/theme.dart';
-import '/pages/profile/widgets/balance_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '/config/theme.dart';
+import '/controllers/user.dart';
+import '/models/user.dart';
+import '/providers/dio_provider.dart';
+import '../../widgets/rounded_icon_button.dart';
+import 'widgets/balance_card.dart';
 import 'widgets/header.dart';
 import 'widgets/transaction_history.dart';
 
-const String currentUser = "123";
-
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends ConsumerStatefulWidget {
   final String userID;
-  final List<String> heroTags;
 
-  const ProfilePage({super.key, required this.userID, required this.heroTags});
+  const ProfilePage({super.key, required this.userID});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  ConsumerState<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage>
+class _ProfilePageState extends ConsumerState<ProfilePage>
     with SingleTickerProviderStateMixin {
   final GlobalKey headerKey = GlobalKey();
   late AnimationController _controller;
   late Animation<double> animation;
-
   double columnHeight = 0;
 
   @override
@@ -35,10 +37,6 @@ class _ProfilePageState extends State<ProfilePage>
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _measureColumnHeight();
-    });
   }
 
   @override
@@ -48,22 +46,31 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   void _measureColumnHeight() {
+    if (columnHeight != 0) return;
+
     final renderBox =
         headerKey.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox != null) {
       setState(() {
         columnHeight = renderBox.size.height;
-
         animation = Tween<double>(begin: 0, end: 1).animate(
           CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
         );
-
-        Future.delayed(
-          Duration(milliseconds: 300),
-          () => _controller.forward(),
-        );
       });
+
+      Future.delayed(Duration(milliseconds: 300), () => _controller.forward());
     }
+  }
+
+  Future<User?> getUserData() async {
+    if (ref.read(userControllerProvider).value!.id == widget.userID) {
+      return ref.read(userControllerProvider).value!;
+    }
+
+    final dio = ref.read(dioProvider);
+    final response = await dio.get('/users/${widget.userID}');
+
+    return User.fromJson(response.data);
   }
 
   @override
@@ -95,54 +102,96 @@ class _ProfilePageState extends State<ProfilePage>
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Stack(
-              children: [
-                if (columnHeight > 0)
-                  AnimatedBuilder(
-                    animation: _controller,
-                    builder: (_, _) => Container(
-                      height: animation.value * columnHeight,
-                      decoration: BoxDecoration(
-                        color: context.colorScheme.secondary,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(25),
-                          bottomRight: Radius.circular(25),
-                        ),
-                      ),
-                    ),
-                  ),
-                ProfileHeader(
-                  data: data,
-                  headerKey: headerKey,
-                  heroTag: widget.heroTags[0],
-                ),
-              ],
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16,
-                  horizontal: 8,
-                ),
+        child: FutureBuilder<User?>(
+          future: getUserData(),
+          builder: (context, asyncSnapshot) {
+            if (asyncSnapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+
+            if (asyncSnapshot.data == null) {
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BalanceCard(data: data, heroTag: widget.heroTags[1]),
-                    const SizedBox(height: 12),
+                    RoundedIconButton(
+                      icon: Icons.arrow_back_rounded,
+                      onTap: context.pop,
+                      color: context.colorScheme.surface,
+                    ),
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: TransactionHistorySection(data: data),
+                      child: Center(
+                        child: Text(
+                          "No user exists with the ID\n${widget.userID}",
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: context.colorScheme.onSurface,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
-          ],
+              );
+            }
+
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _measureColumnHeight();
+            });
+
+            final User user = asyncSnapshot.data!;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Stack(
+                  children: [
+                    if (columnHeight > 0)
+                      AnimatedBuilder(
+                        animation: _controller,
+                        builder: (_, _) {
+                          return Container(
+                            height: animation.value * columnHeight,
+                            decoration: BoxDecoration(
+                              color: context.colorScheme.secondary,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(25),
+                                bottomRight: Radius.circular(25),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ProfileHeader(user: user, headerKey: headerKey),
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 16,
+                      horizontal: 8,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        BalanceCard(user: user, lastMonth: 3840),
+                        const SizedBox(height: 12),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: TransactionHistorySection(data: data),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
